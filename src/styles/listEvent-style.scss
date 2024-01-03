@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Saira:wght@200&family=Signika+Negative&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arvo&family=Signika+Negative&display=swap');
+.eventContainer{
+   border: 3px solid red;
+   background-color: rgb(241, 241, 241);
+    border-radius: 20px;
+    font-family: 'Arvo', serif;
+    padding: 10px;
+    .description-event-card{
+        height: 40px;
+    }
+    .title-event-card{
+        font-weight: bold;
+    }
+.img-card{
+    border-radius: 10px;
+}
+}
+h2{
+    font-family: 'Saira', sans-serif;
+}

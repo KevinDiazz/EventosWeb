@@ -1,0 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300&display=swap");
+.container-typeEvent {
+  background-color: rgb(255, 255, 255);
+  border-radius: 15px;
+  border: 3px solid rgb(116, 196, 51);
+  height: 70px;
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 600;
+}/*# sourceMappingURL=mainView-style.css.map */
