@@ -8,13 +8,18 @@ export default function EventCreatorFormContainer({
   formData,
   setFormData,
   refInputsValues,
-  isVisible,
   setCharacters,
-  characters
+  setShowForm,
+  showForm,
+  characters,
+  id
 }) {
   return (
     <div className="eventCreator">
-      <button className="float-end" onClick={() => isVisible(false)}>
+      <button
+        className="float-end"
+        onClick={() => (showForm ? setShowForm(false) : setShowForm(true))}
+      >
         X
       </button>
       <div className="d-flex justify-content-center">
@@ -205,7 +210,7 @@ export default function EventCreatorFormContainer({
               e.preventDefault();
               const isready = submitValidate(formData);
               setFormData({ ...formData, uid: uuidv4() });
-              isready ? writeInDb(formData) : "";
+              isready ? writeInDb(formData,id) : "";
             }}
             className="mt-3"
           >

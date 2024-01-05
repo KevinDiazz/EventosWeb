@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import EventCreatorFormContainer from "./eventCreatorFormContainer";
 //recibe un estado de profile , para saber si estar visible o no
-export default function CreateEvent({ isVisible }) {
+export default function CreateEvent({showForm,setShowForm}) {
   // num of characters in labels
   const [characters, setCharacters] = useState({
     textarea: 800,
@@ -34,15 +34,15 @@ export default function CreateEvent({ isVisible }) {
     hourEnd: useRef(null),
   };
   const form = useRef(null);
-  let Id = null;
+const [id,setID]=useState(null)
   //DB collections
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
         // El usuario está autenticado
-        Id = user.uid;
-        console.log("ID del usuario:", Id);
+        setID(user.uid);
+        console.log("ID del usuario:", id);
       } else {
         // El usuario no está autenticado
         console.log("Usuario no autenticado");
@@ -55,9 +55,11 @@ export default function CreateEvent({ isVisible }) {
       formData={formData}
       setFormData={setFormData}
       refInputsValues={formRefsValues}
-      isVisible={isVisible}
       setCharacters={setCharacters}
       characters={characters}
+      showForm={showForm}
+      setShowForm={setShowForm}
+      id={id}
     ></EventCreatorFormContainer>
   );
 }

@@ -5,8 +5,10 @@ export default function ListEventsContainer({
   userUid,
   setData,
   typeEvent,
-  documentoHijoRef
+  documentoHijoRef,
 }) {
+  const events = [];
+  eventToGo.map((value) => events.push(value.newEvent));
   return (
     <>
       <h2 className="ms-4">{typeEvent}</h2>
@@ -44,8 +46,7 @@ export default function ListEventsContainer({
                     )
                   }
                 >
-                  {eventToGo.includes(data[event].uid) ? "No voy" : "Voy"}
-                  {console.log(eventToGo)}
+                  {events.includes(data[event].uid)? "No voy":"Voy"}
                 </button>
               </div>
             );

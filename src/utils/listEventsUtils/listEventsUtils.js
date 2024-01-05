@@ -17,7 +17,7 @@ export async function updateEventsToGo(event,documentoHijoRef,data,userUid,setDa
     await updateDoc(documentoHijoRef, {
       [id]: (data[event].assistants += 1),
     });
-    updateDataFromUser(data[event].uid, true,userUid);
+    updateDataFromUser(data[event].uid,data[event].category, true,userUid);
     getData(setData,typeEvent);
     miBoton.innerText = "No Voy";
   } else {
@@ -27,7 +27,7 @@ export async function updateEventsToGo(event,documentoHijoRef,data,userUid,setDa
     });
     getData(setData,typeEvent);
     miBoton.innerText = "Voy";
-    updateDataFromUser(data[event].uid, false,userUid);
+    updateDataFromUser(data[event].uid,data[event].category, false,userUid);
   }
 }
 
@@ -35,7 +35,7 @@ export async function checkEvents(userUid , setEventsToGo) {
   if (userUid) {
     let userRef = doc(db, "users", userUid);
     const docSnap = await getDoc(userRef);
-    let currentEventsToGo = docSnap.data().EventsToGo || [];
+    let currentEventsToGo = await docSnap.data().EventsToGo || [];
     console.log(currentEventsToGo);
     setEventsToGo(currentEventsToGo);
   }
@@ -51,21 +51,22 @@ function orderEventAssistants(events) {
   return objetoOrdenado;
 }
 
-async function updateDataFromUser(newEvent, action , userUid) {
+async function updateDataFromUser(newEvent,typeEvent,action , userUid) {
   let userRef = doc(db, "users", userUid);
   const docSnap = await getDoc(userRef);
-  let currentEventsToGo = docSnap.data().EventsToGo || [];
+  let currentEventsToGo = await docSnap.data().EventsToGo || [];
   if (action) {
-    currentEventsToGo.push(newEvent);
-    const newEventToGo = currentEventsToGo;
-    console.log(newEventToGo);
+    let newArray=currentEventsToGo
+    newArray.push({typeEvent,newEvent})
+    console.log(newArray);
     await updateDoc(userRef, {
-      EventsToGo: newEventToGo,
+      EventsToGo:newArray
     });
   } else {
-    currentEventsToGo = currentEventsToGo.filter((value) => value !== newEvent);
+    currentEventsToGo = currentEventsToGo.filter((value) => value.newEvent !== newEvent);
+    console.log(currentEventsToGo);
     await updateDoc(userRef, {
-      EventsToGo: currentEventsToGo,
+      EventsToGo: currentEventsToGo
     });
   }
 }

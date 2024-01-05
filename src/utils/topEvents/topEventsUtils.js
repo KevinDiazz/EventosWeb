@@ -24,7 +24,9 @@ export function orderEventAssistants(events) {
       );
       let categoriesEvents = await getDoc(usuariosCollection);
       let orderEvents = categoriesEvents.data();
+       console.log(orderEvents)
       let top = orderEventAssistants(orderEvents);
+    
       //   console.log(top)
      bestEvents.push(top[0])
     }

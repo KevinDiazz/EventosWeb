@@ -6,7 +6,7 @@ import Login from "./pages/loginView.jsx";
 import RegistrationPage from "./pages/registrationPage.jsx";
 import Main from "./pages/mainView.jsx";
 import ListEvents from "./components/listEvents.jsx";
-import Profile from "./pages/profile.jsx";
+import ProfilePage from "./pages/profile.jsx";
 import CreateEvent from "./components/eventCreatorForm.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <>
@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/registration" element={<RegistrationPage />} />
         <Route path="/main" element={<Main />} />
         <Route path="/listEvents" element={<ListEvents />} />
-        <Route path="/profile" element={<Profile/>} />
+        <Route path="/profile" element={<ProfilePage/>} />
       </Routes>
     </BrowserRouter>
   </>
