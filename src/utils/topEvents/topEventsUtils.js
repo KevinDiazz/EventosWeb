@@ -26,7 +26,6 @@ export function orderEventAssistants(events) {
       let orderEvents = categoriesEvents.data();
        console.log(orderEvents)
       let top = orderEventAssistants(orderEvents);
-    
       //   console.log(top)
      bestEvents.push(top[0])
     }

@@ -2,6 +2,30 @@
     background-color: beige;
     font-size: large;
     width: 500px;
+    position: absolute;
+    left: 25vw;
+    border-radius: 20px;
+    z-index: 1;
+    input, select{
+      margin-bottom: 15px;
+    }
+}
+.loader {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border-top: 8px solid #e9c600;
+  border-left: 8px solid #f8e90f;
+  border-right: 8px solid rgb(24, 151, 224);
+  animation: loader .7s infinite linear;
+  background-color: white;
+}
+
+@keyframes loader {
+  to {
+    transform: rotate(360deg);
+  }
 }
 .buttonCreateEvent {
   height: 40px;

@@ -9,6 +9,9 @@ export default function CreateEvent({showForm,setShowForm}) {
     descriptionInput: 100,
     titleInput: 30,
   });
+  const [styleIsOk, setStyleIsOk]=useState(true)
+  const [isLoading,setIsLoading]=useState(false)
+  const [isDone,setIsDone]=useState(false)
   const [formData, setFormData] = useState({
     title: null,
     category: null,
@@ -60,6 +63,12 @@ const [id,setID]=useState(null)
       showForm={showForm}
       setShowForm={setShowForm}
       id={id}
+      styleIsOk={styleIsOk}
+      setStyleIsOk={setStyleIsOk}
+      isLoading={isLoading}
+      setIsLoading={setIsLoading}
+      isDone={isDone}
+      setIsDone={setIsDone}
     ></EventCreatorFormContainer>
   );
 }
