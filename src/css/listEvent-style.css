@@ -1,11 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Saira:wght@200&family=Signika+Negative&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Arvo&family=Signika+Negative&display=swap");
 .eventContainer {
-  border: 3px solid red;
-  background-color: rgb(241, 241, 241);
+  border: 3px solid #ffffff;
+  background-color: #f5f5f5;
   border-radius: 20px;
   font-family: "Arvo", serif;
   padding: 10px;
+  box-shadow: -3px 2px 10px 0px rgba(0, 0, 0, 0.91);
+  width: 300px;
+  height: -moz-max-content;
+  height: max-content;
 }
 .eventContainer .description-event-card {
   height: 40px;
@@ -15,6 +19,20 @@
 }
 .eventContainer .img-card {
   border-radius: 10px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: 300px;
+}
+.eventContainer button {
+  background-color: #75deff;
+}
+.eventContainer button:hover {
+  background-color: #5ab5d1;
+  color: white;
+}
+
+.eventContainer:hover {
+  transform: scale(1.04);
 }
 
 h2 {

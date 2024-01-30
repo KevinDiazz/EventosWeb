@@ -1,14 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import EventCreatorFormContainer from "./eventCreatorFormContainer";
+import EventCreatorFormContainer from "./eventCreatorFormContainer.jsx";
+import React from 'react';
+import { v4 as uuidv4 } from "uuid";
 //recibe un estado de profile , para saber si estar visible o no
-export default function CreateEvent({showForm,setShowForm}) {
+export default function CreateEvent({showForm,setShowForm,userData,setUserData,uid}) {
   // num of characters in labels
   const [characters, setCharacters] = useState({
     textarea: 800,
     descriptionInput: 100,
     titleInput: 30,
   });
+  const [imgEvent,setImgEvent]=useState(null)
   const [styleIsOk, setStyleIsOk]=useState(true)
   const [isLoading,setIsLoading]=useState(false)
   const [isDone,setIsDone]=useState(false)
@@ -22,7 +25,7 @@ export default function CreateEvent({showForm,setShowForm}) {
     hourFinish: null,
     fullDescription: null,
     assistants: 1,
-    uid: null,
+    uid: uuidv4(),
   });
   //form inputs values
   const formRefsValues = {
@@ -35,6 +38,7 @@ export default function CreateEvent({showForm,setShowForm}) {
     dateInfo: useRef(null),
     hourStart: useRef(null),
     hourEnd: useRef(null),
+    img:useRef(null)
   };
   const form = useRef(null);
 const [id,setID]=useState(null)
@@ -45,7 +49,6 @@ const [id,setID]=useState(null)
       if (user) {
         // El usuario está autenticado
         setID(user.uid);
-        console.log("ID del usuario:", id);
       } else {
         // El usuario no está autenticado
         console.log("Usuario no autenticado");
@@ -69,6 +72,11 @@ const [id,setID]=useState(null)
       setIsLoading={setIsLoading}
       isDone={isDone}
       setIsDone={setIsDone}
+      imgEvent={imgEvent}
+      setImgEvent={setImgEvent}
+      setUserData={setUserData}
+      uid={uid}
+      userData={userData}
     ></EventCreatorFormContainer>
   );
 }

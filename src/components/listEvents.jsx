@@ -4,12 +4,14 @@ import { db } from "../firebase/firebase";
 import { useEffect, useRef, useState } from "react";
 import "../css/listEvent-style.css";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import React from 'react';
+
 import {
   getData,
   updateEventsToGo,
   checkEvents,
-} from "../utils/listEventsUtils/listEventsUtils";
-import ListEventsContainer from "./listEventsContainer";
+} from "../utils/listEventsUtils/listEventsUtils.jsx";
+import ListEventsContainer from "./listEventsContainer.jsx";
 export default function ListEvents() {
   const location = useLocation();
   const typeEvent = location.state;

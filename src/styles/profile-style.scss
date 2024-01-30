@@ -1,25 +1,43 @@
-.eventCreator{
-    background-color: beige;
-    font-size: large;
-    width: 500px;
-    position: absolute;
-    left: 25vw;
-    border-radius: 20px;
-    z-index: 1;
-    input, select{
-      margin-bottom: 15px;
-    }
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap");
+.eventCreator {
+  background-color: #f5f5f5;
+  font-size: large;
+  position: absolute;
+  border-radius: 20px;
+  top: 0;
+  left: 25vw;
+  z-index: 1;
+  font-family: "DM Serif Display',serif";
+  font-size: larger;
+  input,
+  select {
+    margin-bottom: 15px;
+    border-radius: 10px;
+    padding: 5px;
+  }
+  span {
+    font-weight: bold;
+    color: #de248b;
+  }
+  button {
+    border-radius: 10px;
+  }
+  button:hover {
+    background-color: #fba6dd;
+    color: white;
+    font-weight: bold;
+  }
 }
 .loader {
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
   box-sizing: border-box;
-  border-top: 8px solid #e9c600;
-  border-left: 8px solid #f8e90f;
-  border-right: 8px solid rgb(24, 151, 224);
-  animation: loader .7s infinite linear;
-  background-color: white;
+  border-top: 8px solid #fba6dd;
+  border-left: 8px solid #f15bb5;
+  border-right: 8px solid #fcceed;
+  animation: loader 0.7s infinite linear;
+  background-color: #ff29b1;
 }
 
 @keyframes loader {
@@ -29,13 +47,39 @@
 }
 .buttonCreateEvent {
   height: 40px;
+  border-radius: 5px;
+}
+.buttonCreateEvent:hover {
+  background-color: #75deff;
 }
 .swiper {
   width: 600px;
   height: 300px;
 }
-.img-profile{
-  img{
+.img-profile {
+  img {
     height: 140px;
+    border-radius: 20px;
   }
+}
+.asistants {
+  background-color: #f8e90f;
+}
+.finishedCreation {
+  font-family: "DM Serif Display',serif";
+  color: #0d0411;
+  font-weight: bolder;
+  display: none;
+  background-color: #ffffff00;
+  button {
+    font-size: medium;
+    width: 30px;
+    align-self: center;
+  }
+  button:hover {
+    background-color: #f15bb5;
+  }
+}
+.img-event{
+  object-fit: cover;
 }

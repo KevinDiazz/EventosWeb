@@ -15,6 +15,7 @@ export default function useAuthProvider() {
     try {
       const res = await signInWithPopup(auth, googleProvider);
       if (res) {
+        console.log(res)
         const userRef = doc(db, "users", res.user.uid);
         const elemt = await getDoc(userRef);
         setState(true);

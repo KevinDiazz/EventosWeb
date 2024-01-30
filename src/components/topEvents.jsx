@@ -4,16 +4,18 @@ import {
   orderEventAssistants,
   BestEvents,
 } from "../utils/topEvents/topEventsUtils";
-import TopEventsContainer from "./topEventsContianer";
-import { ListOfCategories } from "./listCategories";
+import React from 'react';
+
+import TopEventsContainer from "./topEventsContianer.jsx";
 export default function TopEvents() {
   const [topEvents, setTopEvents] = useState([]);
   useEffect(() => {
     BestEvents(setTopEvents);
   }, []);
   return (
-    <TopEventsContainer
-      topEvents={topEvents}
-    ></TopEventsContainer>
+    topEvents &&
+    <>
+      <TopEventsContainer topEvents={topEvents}></TopEventsContainer>
+    </>
   );
 }

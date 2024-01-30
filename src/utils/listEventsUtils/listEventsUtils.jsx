@@ -1,6 +1,6 @@
 import { doc, getDoc,updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
-
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 export async function getData(setData , typeEvent) {
   const ref = doc(db, "events", typeEvent.split(" ").join(""));
   const elemt = await getDoc(ref);
@@ -36,7 +36,6 @@ export async function checkEvents(userUid , setEventsToGo) {
     let userRef = doc(db, "users", userUid);
     const docSnap = await getDoc(userRef);
     let currentEventsToGo = await docSnap.data().EventsToGo || [];
-    console.log(currentEventsToGo);
     setEventsToGo(currentEventsToGo);
   }
 }
@@ -54,11 +53,10 @@ function orderEventAssistants(events) {
 async function updateDataFromUser(newEvent,typeEvent,action , userUid) {
   let userRef = doc(db, "users", userUid);
   const docSnap = await getDoc(userRef);
-  let currentEventsToGo = await docSnap.data().EventsToGo || [];
+  let currentEventsToGo = await docSnap.data().EventsToGo;
   if (action) {
     let newArray=currentEventsToGo
     newArray.push({typeEvent,newEvent})
-    console.log(newArray);
     await updateDoc(userRef, {
       EventsToGo:newArray
     });
@@ -69,4 +67,17 @@ async function updateDataFromUser(newEvent,typeEvent,action , userUid) {
       EventsToGo: currentEventsToGo
     });
   }
+}
+
+export async function getImg(events,setImg) {
+  let eventsUrl = {};
+  for (let index = 0; index < events.length; index++) {
+    const nameImg = "imgEvents/" + events[index]
+    const storage = getStorage();
+    let url = await getDownloadURL(ref(storage, nameImg));
+    let uid=events[index]
+    eventsUrl={...eventsUrl, [uid]:url}
+  }
+
+  setImg(eventsUrl)
 }

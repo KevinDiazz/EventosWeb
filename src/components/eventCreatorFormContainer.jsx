@@ -1,11 +1,13 @@
 import { useEffect } from "react";
+import React from 'react';
+
 import {
   checkCharacters,
   submitValidate,
   writeInDb,
   submit,
-} from "../utils/eventCreatorForm/eventCreatorForm";
-import { v4 as uuidv4 } from "uuid";
+} from "../utils/eventCreatorForm/eventCreatorForm.jsx";
+import { userInfo } from "../utils/profile/profileUtils.jsx";
 export default function EventCreatorFormContainer({
   formData,
   setFormData,
@@ -21,14 +23,18 @@ export default function EventCreatorFormContainer({
   setIsLoading,
   isDone,
   setIsDone,
+  imgEvent,
+  setImgEvent,
+  uid,
+  userData,
+  setUserData,
 }) {
   useEffect(() => {
-    console.log(styleIsOk);
-  }, [styleIsOk, isLoading]);
+  }, []);
   return (
     <>
       <div
-        className="flex flex-column col-12 align-items-center  h-100"
+        className="flex-column col-12 align-items-center  h-100 fs-4 fw-bold"
         style={{
           display: isLoading && !isDone ? "flex" : "none",
           position: "absolute",
@@ -36,39 +42,40 @@ export default function EventCreatorFormContainer({
           zIndex: 1,
         }}
       >
-        <div class="loader"></div>
-        Cargando
+        <div className="loader"></div>
+        Creando Evento
       </div>
       <div
-        className="flex flex-column col-12 align-items-center  h-100 fs-1"
+        className="finishedCreation justify-content-center  col-12 h-50 align-items-center fs-1"
         style={{
-          display: isDone ? "flex" : "none",
+          display: isLoading && isDone ? "flex" : "none",
           position: "absolute",
           top: "120vh",
           zIndex: 1,
         }}
       >
+        <span>Evento Creado con exito!</span>
         <button
-          className="float-end rounded"
+          className="rounded"
           onClick={() => {
             setIsDone(false);
             setIsLoading(false);
             setShowForm(false);
+            userInfo(uid, setUserData);
           }}
         >
           X
         </button>
-        Evento Creado con exito!
       </div>
       <div
-        className="eventCreator p-3"
+        className="eventCreator col-8 col-sm-6 col-md-5 col-lg-5 flex-column align-items-end  p-3 col-5"
         style={{
           border: styleIsOk ? "blue 3px solid" : "red 3px solid",
-          display: isLoading ? "none" : "block",
+          display: isLoading ? "none" : "flex",
         }}
       >
         <button
-          className="float-end rounded"
+          className="rounded col-sm-2 col-md-2 col-lg-1 text-center"
           onClick={() => {
             if (showForm) {
               setShowForm(false);
@@ -79,10 +86,15 @@ export default function EventCreatorFormContainer({
         >
           X
         </button>
-        <div className="d-flex justify-content-center">
-          <form className="col-8 d-flex flex-column">
+        <div
+          className="col-12 justify-content-center"
+          style={{ display: isLoading ? "none" : "flex" }}
+        >
+          <form className="col-12 d-flex flex-column align-items-start gap-2">
             <div>
-              <label htmlFor="title">Titulo del evento</label>
+              <label htmlFor="title" className="fw-bold">
+                Titulo del evento
+              </label>
               <input
                 className="col-10"
                 id="title"
@@ -107,7 +119,20 @@ export default function EventCreatorFormContainer({
               ></input>
               <span className="m-2">{characters.titleInput}</span>
             </div>
-            <label htmlFor="title">Categoria del Evento</label>
+            <label className="fw-bold">Subir imagen para el Evento</label>
+            <input
+              className="col-12"
+              type="file"
+              id="fileInput"
+              style={{ border: styleIsOk ? "" : "red 3px solid" }}
+              ref={refInputsValues.img}
+              onChange={(e) => {
+                setImgEvent(e.target.files[0]);
+              }}
+            />
+            <label htmlFor="title" className="fw-bold">
+              Categoria del Evento
+            </label>
             <select
               className="col-10"
               id="title"
@@ -125,9 +150,6 @@ export default function EventCreatorFormContainer({
               <option value="Conciertos y Espectáculos Musicales">
                 Conciertos y Espectáculos Musicales
               </option>
-              <option value="Eventos Culturales y Festivales">
-                Eventos Culturales y Festivales
-              </option>
               <option value="Deportivos y Competencias">
                 Deportivos y Competencias
               </option>
@@ -138,7 +160,7 @@ export default function EventCreatorFormContainer({
               <option value="Celebraciones Sociales">
                 Celebraciones Sociales
               </option>
-              <option value="Eventos Corporativos">Eventos Corporativos</option>
+
               <option value="Eventos de Caridad y Voluntariado">
                 Eventos de Caridad y Voluntariado
               </option>
@@ -150,13 +172,11 @@ export default function EventCreatorFormContainer({
               <option value="Eventos Gastronómicos">
                 Eventos Gastronómicos
               </option>
-              <option value="Eventos al Aire Libre">
-                Eventos al Aire Libre
-              </option>
+
               <option value="Eventos Recreativos y Entretenimiento">
                 Eventos Recreativos y Entretenimiento
               </option>
-              <option value="Eventos Literarios">Eventos Literarios</option>
+
               <option value="Eventos de Viaje y Aventura">
                 Eventos de Viaje y Aventura
               </option>
@@ -168,7 +188,9 @@ export default function EventCreatorFormContainer({
               </option>
             </select>
             <div className="col-12">
-              <label htmlFor="descripcion">Descripcion breve del evento</label>
+              <label htmlFor="descripcion" className="fw-bold">
+                Descripcion breve del evento
+              </label>
 
               <input
                 className="col-10"
@@ -195,7 +217,9 @@ export default function EventCreatorFormContainer({
               ></input>
               <span className="m-2">{characters.descriptionInput}</span>
             </div>
-            <label htmlFor="descripcion">Lugar</label>
+            <label htmlFor="descripcion" className="fw-bold">
+              Lugar
+            </label>
             <input
               className="col-10"
               id="descripcion"
@@ -209,7 +233,9 @@ export default function EventCreatorFormContainer({
                 })
               }
             ></input>
-            <label htmlFor="descripcion">Fecha</label>
+            <label htmlFor="descripcion" className="fw-bold">
+              Fecha
+            </label>
             <input
               className="col-10"
               id="descripcion"
@@ -223,7 +249,9 @@ export default function EventCreatorFormContainer({
                 })
               }
             ></input>
-            <label htmlFor="descripcion">hora de inicio Evento</label>
+            <label htmlFor="descripcion" className="fw-bold">
+              Hora de inicio
+            </label>
             <input
               className="col-4"
               id="descripcion"
@@ -237,7 +265,9 @@ export default function EventCreatorFormContainer({
                 })
               }
             ></input>
-            <label htmlFor="descripcion">hora Final del evento</label>
+            <label htmlFor="descripcion" className="fw-bold">
+              Hora Final del evento
+            </label>
             <input
               className="col-4"
               id="descripcion"
@@ -251,8 +281,11 @@ export default function EventCreatorFormContainer({
                 })
               }
             ></input>
-            <label htmlFor="textarea">Descripcion del Evento</label>
+            <label htmlFor="textarea" className="fw-bold">
+              Descripcion del Evento
+            </label>
             <textarea
+              className="col-12"
               name="textarea"
               rows="10"
               ref={refInputsValues.textarea}
@@ -282,7 +315,7 @@ export default function EventCreatorFormContainer({
                 color: styleIsOk ? "" : "red",
               }}
             >
-              Algo falló , ¡revise su evento y corriga los errores!
+              Algo falló , ¡revise su evento y corriga los errores!<br></br> No olvide rellenar todos los datos y añadir una imagen.
             </p>
             <button
               type="submit"
@@ -293,8 +326,8 @@ export default function EventCreatorFormContainer({
                   setStyleIsOk,
                   id,
                   setFormData,
-                  uuidv4,
-                  setIsDone
+                  setIsDone,
+                  imgEvent
                 );
                 ready ? setIsLoading(true) : "";
               }}

@@ -6,7 +6,6 @@ export async function getUrlIcons(eventsCategorieName) {
   let urlIcons = {};
   for (let i = 0; i < eventsCategorieName.tiposEvento.length; i++) {
     const nameImg = "iconos/iconos/" + eventsCategorieName.tiposEvento[i] + ".png";
-    console.log(nameImg);
     const storage = getStorage();
     let url = await getDownloadURL(ref(storage, nameImg));
     urlIcons = { ...urlIcons, [eventsCategorieName.tiposEvento[i]]: url };
@@ -20,7 +19,6 @@ export async function fetchData(){
     const docSnap = await getDoc(docRef);
     return docSnap
   } catch (error) {
-    console.log(error);
   }
 };
 

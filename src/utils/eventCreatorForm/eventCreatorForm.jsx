@@ -1,5 +1,6 @@
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 export function checkCharacters(
   valueLength,
   maxValue,
@@ -18,7 +19,6 @@ export function checkCharacters(
 //validacion de informacion en el form
 export function submitValidate(dataForm, setStyleIsOk) {
   var isOk = true;
-  console.log(dataForm);
   Object.keys(dataForm).forEach((value) => {
     if (dataForm[value] === null) {
       isOk = false;
@@ -37,12 +37,11 @@ export async function writeInDb(data, uid) {
   const usuarioInfo = doc(db, "users", uid);
   const docSnap = await getDoc(usuarioInfo);
   let eventsCreated = docSnap.data().createdEvents;
-  let newArray = eventsCreated;
+  let newArray = eventsCreated || [];
   newArray.push(data);
   await updateDoc(usuarioInfo, {
     createdEvents: newArray,
   });
-  console.log(usuariosCollection);
   await updateDoc(usuariosCollection, { [data.uid]: data }, { merge: true }); // se añade el evento creado al documento de la categoria
 }
 
@@ -52,17 +51,28 @@ export function submit(
   setStyleIsOk,
   id,
   setFormData,
-  uuidv4,
-  setIsDone
+  setIsDone,
+  imgEvent,
+  setEventsToGo
 ) {
   e.preventDefault();
-  setFormData({ ...formData, uid: uuidv4() });
-  const isready = submitValidate(formData, setStyleIsOk,setIsDone);
+  let isready = submitValidate(formData, setStyleIsOk, setIsDone);
+  isready && imgEvent !== null ? addImageInStorage(formData.uid, imgEvent) : "";
+  imgEvent === null ? (isready = false) : "";
   isready ? writeInDb(formData, id) : "";
   isready
     ? setTimeout(() => {
         setIsDone(true);
       }, 3000)
     : "";
-    return isready
+isready? setStyleIsOk(true):setStyleIsOk(false)
+  return isready;
+}
+
+function addImageInStorage(name, file) {
+  const storage = getStorage();
+  const imgEvent = ref(storage, "imgEvents/" + name);
+  uploadBytes(imgEvent, file).then((snapshot) => {
+    console.log("Uploaded a blob or file!");
+  });
 }

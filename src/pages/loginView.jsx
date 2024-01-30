@@ -1,22 +1,26 @@
-import {
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  signInWithPopup,
-} from "firebase/auth";
-import { auth } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import React from "react";
+import "../css/loginView.css";
 import useAuthProvider from "../hooks/useAuth";
 export default function Login() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const {handleClick} = useAuthProvider()
+  const { handleClick } = useAuthProvider();
   const navigate = useNavigate();
   if (isAuthenticated) {
-    return navigate('../main');
+    navigate("../main");
   }
   return (
-    <>
-      <button onClick={()=>handleClick(setIsAuthenticated)}>Login with Google</button>
-    </>
+    <div className="containerLogin">
+      <form className="form" onSubmit={(e) => e.preventDefault()}>
+        <p className="login">Log Eventy with Google</p>
+        <button
+          className="submit"
+          onClick={() => handleClick(setIsAuthenticated)}
+        >
+          Login with Google
+        </button>
+      </form>
+    </div>
   );
 }

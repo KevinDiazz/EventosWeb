@@ -3,19 +3,27 @@
     height: 150px;
 }
 .type-event{
-    background-color: aquamarine;
+    background-color: #00BBF9;
     max-height: 80px;
     min-height: 80px;
     width: 100%;
     border-radius:0 0 20px 20px;
     padding: 10px;
+    font-weight: 400;
+    color: white;
 }
 
 .top-event-container{
-    border: 3px solid red;
+    border: 5px solid #ffffff;
     background-color: rgb(241, 241, 241);
      border-radius: 20px;
      font-family: 'Arvo', serif;
+     box-shadow: -3px 2px 19px 0px rgba(0,0,0,0.91);
+     height: max-content;
+     cursor: pointer;
+}
+.top-event-container:hover{
+    transform: scale(1.05);
 }
 .img-event{
     background-color: blueviolet;
@@ -31,3 +39,4 @@
 .info-top-event-time{
     height: 100%;
 }
+
